@@ -4,35 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartchat/interceptors/di.dart';
+import 'package:smartchat/utils/enums.dart';
 
 import '../../../resources/all_resources.dart';
 import '../../Chat/models/chat_user.dart';
 
-enum Status {
-  uninitialized,
-  authenticated,
-  authenticating,
-  authenticateError,
-  authenticateCanceled,
-}
-
 class AuthProvider extends ChangeNotifier {
   Status _status = Status.uninitialized;
-
   Status get status => _status;
 
-  AuthProvider(
-      //     {
-      //   required this.googleSignIn,
-      //   required this.firebaseAuth,
-      //   required this.firebaseFirestore,
-      // }
-      );
   final googleSignIn = sl<GoogleSignIn>();
   final firebaseAuth = sl<FirebaseAuth>();
   final firebaseFirestore = sl<FirebaseFirestore>();
-  // final FirebaseAuth firebaseAuth;
-  // final FirebaseFirestore firebaseFirestore;
+
   String? getFirebaseUserId() {
     return sl<SharedPreferences>().getString(FirestoreConstants.id);
   }

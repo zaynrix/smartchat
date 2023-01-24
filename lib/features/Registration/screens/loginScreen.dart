@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:smartchat/features/Home/screens/homeScreen.dart';
 import 'package:smartchat/resources/all_resources.dart';
 
+import '../../../utils/enums.dart';
 import '../providers/auth_provider.dart';
 
 class LoginPage extends StatefulWidget {
