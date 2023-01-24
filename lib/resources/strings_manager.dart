@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 class AppStrings {
   String appTitle = "Smart Talk";
   String loginTitle = "Login Page";
-  String homeTitle = "Home Page";
+  String homeTitle = "Registration Page";
   String profileTitle = "Profile Page";
   String fullPhotoTitle = "Image Full Size";
 

@@ -13,7 +13,7 @@ import 'package:smartchat/routing/navigation.dart';
 // import 'package:bond_template/routing/navigation.dart';
 // import 'package:bond_template/api/local/local_pref.dart';
 // import 'package:bond_template/resources/color_manager.dart';
-// import 'package:bond_template/features/Home/homeProvider.dart';
+// import 'package:bond_template/features/Registration/homeProvider.dart';
 // import 'package:easy_localization/easy_localization.dart';
 
 class AppConfig extends ChangeNotifier {

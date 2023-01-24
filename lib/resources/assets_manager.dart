@@ -19,10 +19,7 @@ class ImageAssets {
   static const String detailsBackgoung = "$IMAGE_PATH/detailsBackgoung.svg";
 }
 
-class SVGAssets {
-
-}
-
+class SVGAssets {}
 
 class IconAssets {
   static const String arrowRight = '$ICON_PATHLight/ArrowRight2.svg';
@@ -32,7 +29,7 @@ class IconAssets {
   static const String lock = '$ICON_PATHLight/Lock.svg';
   static const String hide = '$ICON_PATHLight/Hide.svg';
   static const String show = '$ICON_PATHLight/Show.svg';
-  static const String home = '$ICON_PATHLight/Home.svg';
+  static const String home = '$ICON_PATHLight/Registration.svg';
   static const String cart = '$ICON_PATHLight/Buy.svg';
   static const String explor = '$ICON_PATHLight/Discovery.svg';
   static const String star = '$ICON_PATHLight/Star.svg';

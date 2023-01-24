@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:smartchat/utils/appConfig.dart';
-// import 'package:bond_template/features/Home/homeProvider.dart';
+// import 'package:bond_template/features/Registration/homeProvider.dart';
 
 class DioInterceptor extends Interceptor {
   @override

@@ -8,7 +8,7 @@ import 'package:smartchat/utils/appConfig.dart';
 // import 'package:bond_template/interceptors/di.dart';
 // import 'package:bond_template/utils/appConfig.dart';
 // import 'package:bond_template/features/splashScreen.dart';
-// import 'package:bond_template/features/Home/homeScreen.dart';
+// import 'package:bond_template/features/Registration/homeScreen.dart';
 // import 'package:bond_template/features/onBoardingScreen.dart';
 // import 'package:bond_template/features/Registrations/loginScreen.dart';
 // import 'package:bond_template/features/Registrations/signUpScreen.dart';
@@ -74,7 +74,7 @@ class RouterX {
       //     ),
       //   );
       //
-      // // ------------- Home Screen ---------------
+      // // ------------- Registration Screen ---------------
       //
       // case Routes.home:
       //   return MaterialPageRoute(

@@ -13,7 +13,7 @@ import 'dio_interceptor.dart';
 // import 'package:bond_template/routing/navigation.dart';
 // import 'package:bond_template/api/remote/auth_api.dart';
 // import 'package:bond_template/api/local/local_pref.dart';
-// import 'package:bond_template/features/Home/homeProvider.dart';
+// import 'package:bond_template/features/Registration/homeProvider.dart';
 // import 'package:bond_template/repository/home_repo/task_repo.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:bond_template/repository/user_repo/login_repo.dart';

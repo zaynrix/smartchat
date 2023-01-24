@@ -1,314 +1,374 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:bond_template/routing/routes.dart';
-// import 'package:bond_template/interceptors/di.dart';
-// import 'package:bond_template/models/taskModel.dart';
-// import 'package:bond_template/routing/navigation.dart';
-// import 'package:bond_template/shared/pages/empty.dart';
-// import 'package:grouped_list/grouped_list.dart';
-// import 'package:bond_template/api/local/local_pref.dart';
-// import 'package:bond_template/resources/font_manager.dart';
-// import 'package:bond_template/shared/pages/reConnect.dart';
-// import 'package:bond_template/resources/color_manager.dart';
-// import 'package:bond_template/resources/assets_manager.dart';
-// import 'package:bond_template/resources/strings_manager.dart';
-// import 'package:bond_template/shared/widgets/CustomeSvg.dart';
-// import 'package:bond_template/features/Home/homeProvider.dart';
-// import 'package:bond_template/shared/widgets/CustomAppBar.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:bond_template/shared/skeletonWidget/ShimmerHelper.dart';
-// import 'package:internet_connection_checker/internet_connection_checker.dart';
-//
-// class HomeScreen extends StatelessWidget {
-//
-//   HomeScreen(){
-//     sl<HomeProvider>().getHome();
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<HomeProvider>(
-//       builder: (context, value, child) {
-//         return Scaffold(
-//           resizeToAvoidBottomInset: false,
-//           key: value.ScaffoldKeySheet,
-//           floatingActionButton: FloatingActionButton(
-//             elevation: 16,
-//             child: Icon(Icons.add),
-//             backgroundColor: ColorManager.darkGrey,
-//             onPressed: () {
-//               value.noteTitle.clear();
-//               value.id = 0;
-//               value.noteBottomSheet(value.ScaffoldKeySheet);
-//             },
-//           ),
-//           backgroundColor: ColorManager.backgroundColor,
-//           appBar: CustomAppBar(
-//             actions: [
-//               Image.asset(
-//                 ImageAssets.splashLogoPng,
-//               ),
-//               Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 25.w),
-//                 child: GestureDetector(
-//                   onTap: () {
-//                     sl<NavigationService>().navigateTo(Routes.setting);
-//                   },
-//                   child: Container(
-//                     decoration: BoxDecoration(
-//                         color: ColorManager.primaryBlack,
-//                         borderRadius: BorderRadius.circular(15)),
-//                     child: Padding(
-//                       padding: EdgeInsets.all(16.0.w),
-//                       child: CustomSvgAssets(
-//                         path: IconAssets.setting,
-//                         color: Colors.red,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//             backgroundColor: ColorManager.parent,
-//             title: "${AppStrings().note}",
-//           ),
-//           body: Provider.of<InternetConnectionStatus>(context) ==
-//                   InternetConnectionStatus.disconnected
-//               ? NetworkDisconnected(onPress: () {
-//                   value.refresh();
-//                 })
-//               : RefreshIndicator(
-//                   onRefresh: () async {
-//                     value.refresh();
-//                   },
-//                   child: Padding(
-//                     padding: EdgeInsets.symmetric(horizontal: 24),
-//                     child: value.init == false && value.tasks!.length == 0
-//                         ? SingleChildScrollView(
-//                             child: buildListShimmer(item_count: 10),
-//                           )
-//                         : value.tasks!.length > 0
-//                             ? RefreshIndicator(
-//                                 onRefresh: () async {
-//                                   value.refresh();
-//                                 },
-//                                 child: Center(
-//                                   child: Text("Home"),
-//                                 )
-//                               )
-//                             : EmptyScreen(
-//                                 path: ImageAssets.noNote,
-//                                 title: AppStrings().noNotes,
-//                                 subtitle: AppStrings().subNoNotes,
-//                               ),
-//                   ),
-//                 ),
-//         );
-//       },
-//     );
-//   }
-// }
-//
-// // class noteCard extends StatelessWidget {
-// //  final GlobalKey? scaffoldKeySheet;
-// //  final Data? element;
-// //  final bool stop;
-// //
-// //   noteCard({Key? key, this.element, this.stop = false, this.scaffoldKeySheet})
-// //       : super(key: key);
-// //
-// //  final data = sl<HomeProvider>();
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Consumer<SettingProvider>(
-// //       builder: (context, value, child) => Dismissible(
-// //         background: SlideLeftBackground(),
-// //         secondaryBackground: SlideRightBackground(),
-// //         key: Key(element!.title!),
-// //         confirmDismiss: stop
-// //             ? (direction) async {
-// //                 if (direction == DismissDirection.endToStart) {
-// //                   showDialog(
-// //                       context: context,
-// //                       builder: (BuildContext context) {
-// //                         return AlertDialog(
-// //                           backgroundColor: ColorManager.darkGrey,
-// //                           content: Text(
-// //                             "Are you sure you want to delete ${element!.title!}?",
-// //                             style: Theme.of(context).textTheme.subtitle2,
-// //                             overflow: TextOverflow.visible,
-// //                           ),
-// //                           actions: <Widget>[
-// //                             TextButton(
-// //                               child: Text(
-// //                                 "Cancel",
-// //                                 style: TextStyle(color: ColorManager.lightGrey),
-// //                               ),
-// //                               onPressed: () {
-// //                                 Navigator.of(context).pop();
-// //                               },
-// //                             ),
-// //                             TextButton(
-// //                               child: Text(
-// //                                 "Delete",
-// //                                 style: TextStyle(color: Colors.red),
-// //                               ),
-// //                               onPressed: () {
-// //                                 data.id = element!.id;
-// //                                 data.deleteTask();
-// //
-// //                                 Navigator.of(context).pop();
-// //                               },
-// //                             ),
-// //                           ],
-// //                         );
-// //                       });
-// //                 } else {
-// //                   data.noteTitle.text = element!.title!;
-// //                   data.id = element!.id;
-// //                   data.noteBottomSheet(scaffoldKeySheet!);
-// //                 }
-// //                 return null;
-// //               }
-// //             : (direction) async {
-// //                 return false;
-// //               },
-// //         child: Card(
-// //           elevation: 0,
-// //           child: Container(
-// //             width: double.infinity,
-// //             padding: EdgeInsets.all(36),
-// //             decoration: BoxDecoration(
-// //               borderRadius: BorderRadius.circular(10.r),
-// //               gradient: LinearGradient(
-// //                 colors: value.CCC[sl<SharedLocal>().getColorIndex],
-// //                 begin: Alignment.centerLeft,
-// //                 end: Alignment.centerRight,
-// //               ),
-// //             ),
-// //             child: Text("${element!.title!} ",
-// //                 overflow: TextOverflow.visible,
-// //                 style: Theme.of(context)
-// //                     .textTheme
-// //                     .headline1!
-// //                     .copyWith(fontSize: 12.0 * sl<SharedLocal>().getFontSize)),
-// //           ),
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-//
-//
-// Widget slideLeftBackground() {
-//   return Container(
-//     color: Colors.red,
-//     child: Align(
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.end,
-//         children: <Widget>[
-//           Icon(
-//             Icons.delete,
-//             color: Colors.white,
-//           ),
-//           Text(
-//             " Delete",
-//             style: TextStyle(
-//               color: Colors.white,
-//               fontWeight: FontWeight.w700,
-//             ),
-//             textAlign: TextAlign.right,
-//           ),
-//           SizedBox(
-//             width: 20,
-//           ),
-//         ],
-//       ),
-//       alignment: Alignment.centerRight,
-//     ),
-//   );
-// }
-//
-// class SlideRightBackground extends StatelessWidget {
-//   const SlideRightBackground({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Card(
-//       elevation: 0,
-//       color: ColorManager.backgroundColor,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(6.0.r),
-//       ),
-//       child: Align(
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.end,
-//           children: <Widget>[
-//             SizedBox(
-//               width: 30.w,
-//             ),
-//             Container(
-//               child: Padding(
-//                 padding: EdgeInsets.all(10.0.h),
-//                 child: CustomSvgAssets(
-//                   path: IconAssets.delete,
-//                   color: ColorManager.white,
-//                 ),
-//               ),
-//               decoration: BoxDecoration(
-//                 color: Colors.red,
-//                 borderRadius: BorderRadius.all(
-//                   Radius.circular(4),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         alignment: AlignmentDirectional.centerStart,
-//       ),
-//     ));
-//   }
-// }
-//
-// class SlideLeftBackground extends StatelessWidget {
-//   const SlideLeftBackground({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Card(
-//       elevation: 0,
-//       color: ColorManager.backgroundColor,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(6.0.r),
-//       ),
-//       child: Align(
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: <Widget>[
-//             SizedBox(
-//               width: 30.w,
-//             ),
-//             Container(
-//               child: Padding(
-//                 padding: EdgeInsets.all(10.0.h),
-//                 child: CustomSvgAssets(
-//                   path: IconAssets.menu,
-//                   color: ColorManager.white,
-//                 ),
-//               ),
-//               decoration: BoxDecoration(
-//                 color: Colors.green,
-//                 borderRadius: BorderRadius.all(
-//                   Radius.circular(4),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         alignment: AlignmentDirectional.centerStart,
-//       ),
-//     ));
-//   }
-// }
+import 'dart:async';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:smartchat/features/Chat/screens/chat_screen.dart';
+import 'package:smartchat/features/Home/screens/profileScreen.dart';
+import 'package:smartchat/features/Registration/screens/loginScreen.dart';
+import 'package:smartchat/utils/debouncer.dart';
+import 'package:smartchat/utils/keyboard_utils.dart';
+
+import '../../../resources/all_resources.dart';
+import '../../Chat/models/chat_user.dart';
+import '../../Registration/providers/auth_provider.dart';
+import '../../Registration/widgets/all_widgets.dart';
+import '../providers/home_provider.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final ScrollController scrollController = ScrollController();
+
+  int _limit = 20;
+  final int _limitIncrement = 20;
+  String _textSearch = "";
+  bool isLoading = false;
+
+  late AuthProvider authProvider;
+  late String currentUserId;
+  late HomeProvider homeProvider;
+
+  Debouncer searchDebouncer = Debouncer(milliseconds: 300);
+  StreamController<bool> buttonClearController = StreamController<bool>();
+  TextEditingController searchTextEditingController = TextEditingController();
+
+  Future<void> googleSignOut() async {
+    authProvider.googleSignOut();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const LoginPage()));
+  }
+
+  Future<bool> onBackPress() {
+    openDialog();
+    return Future.value(false);
+  }
+
+  Future<void> openDialog() async {
+    switch (await showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return SimpleDialog(
+            backgroundColor: ColorManager.burgundy,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Exit Application',
+                  style: TextStyle(color: ColorManager.white),
+                ),
+                Icon(
+                  Icons.exit_to_app,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Sizes.dimen_10),
+            ),
+            children: [
+              vertical10,
+              const Text(
+                'Are you sure?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: ColorManager.white, fontSize: Sizes.dimen_16),
+              ),
+              vertical15,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 0);
+                    },
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(color: ColorManager.white),
+                    ),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 1);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        borderRadius: BorderRadius.circular(Sizes.dimen_8),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                      child: const Text(
+                        'Yes',
+                        style: TextStyle(color: ColorManager.spaceCadet),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
+        })) {
+      case 0:
+        break;
+      case 1:
+        exit(0);
+    }
+  }
+
+  /// TODO : For using
+  void scrollListener() {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      print(
+          "Screooled scrollController.offset ${scrollController.offset} scrollController.position.maxScrollExtent ${scrollController.position.maxScrollExtent}");
+      print(
+          "Screooled scrollController.position.outOfRange ${scrollController.position.outOfRange}");
+      setState(() {
+        _limit += _limitIncrement;
+      });
+    }
+    print("In else");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    buttonClearController.close();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    authProvider = context.read<AuthProvider>();
+    homeProvider = context.read<HomeProvider>();
+    if (authProvider.getFirebaseUserId()?.isNotEmpty == true) {
+      currentUserId = authProvider.getFirebaseUserId()!;
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+          (Route<dynamic> route) => false);
+    }
+
+    scrollController.addListener(scrollListener);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            title: const Text('Smart Talk'),
+            actions: [
+              IconButton(
+                  onPressed: () => googleSignOut(),
+                  icon: const Icon(Icons.logout)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfilePage()));
+                  },
+                  icon: const Icon(Icons.person)),
+            ]),
+        body: WillPopScope(
+          onWillPop: onBackPress,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  buildSearchBar(),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: homeProvider.getFirestoreData(
+                          FirestoreConstants.pathUserCollection,
+                          _limit,
+                          _textSearch),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasData) {
+                          if ((snapshot.data?.docs.length ?? 0) > 0) {
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) => buildItem(
+                                  context, snapshot.data?.docs[index]),
+                              controller: scrollController,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
+                            );
+                          } else {
+                            return const Center(
+                              child: Text('No user found...'),
+                            );
+                          }
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                child:
+                    isLoading ? const LoadingView() : const SizedBox.shrink(),
+              ),
+            ],
+          ),
+        ));
+  }
+
+  Widget buildSearchBar() {
+    return Container(
+      margin: const EdgeInsets.all(Sizes.dimen_10),
+      height: Sizes.dimen_50,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            width: Sizes.dimen_10,
+          ),
+          const Icon(
+            Icons.person_search,
+            color: ColorManager.white,
+            size: Sizes.dimen_24,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Expanded(
+            child: TextFormField(
+              textInputAction: TextInputAction.search,
+              controller: searchTextEditingController,
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  buttonClearController.add(true);
+                  setState(() {
+                    _textSearch = value;
+                  });
+                } else {
+                  buttonClearController.add(false);
+                  setState(() {
+                    _textSearch = "";
+                  });
+                }
+              },
+              decoration: const InputDecoration.collapsed(
+                hintText: 'Search here...',
+                hintStyle: TextStyle(color: ColorManager.white),
+              ),
+            ),
+          ),
+          StreamBuilder(
+              stream: buttonClearController.stream,
+              builder: (context, snapshot) {
+                return snapshot.data == true
+                    ? GestureDetector(
+                        onTap: () {
+                          searchTextEditingController.clear();
+                          buttonClearController.add(false);
+                          setState(() {
+                            _textSearch = '';
+                          });
+                        },
+                        child: const Icon(
+                          Icons.clear_rounded,
+                          color: ColorManager.greyColor,
+                          size: 20,
+                        ),
+                      )
+                    : const SizedBox.shrink();
+              })
+        ],
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Sizes.dimen_30),
+        color: ColorManager.spaceLight,
+      ),
+    );
+  }
+
+  Widget buildItem(BuildContext context, DocumentSnapshot? documentSnapshot) {
+    final firebaseAuth = FirebaseAuth.instance;
+    if (documentSnapshot != null) {
+      ChatUser userChat = ChatUser.fromDocument(documentSnapshot);
+      if (userChat.id == currentUserId) {
+        return const SizedBox.shrink();
+      } else {
+        return TextButton(
+          onPressed: () {
+            if (KeyboardUtils.isKeyboardShowing()) {
+              KeyboardUtils.closeKeyboard(context);
+            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                          peerId: userChat.id,
+                          peerAvatar: userChat.photoUrl,
+                          peerNickname: userChat.displayName,
+                          userAvatar: firebaseAuth.currentUser!.photoURL!,
+                        )));
+          },
+          child: ListTile(
+            leading: userChat.photoUrl.isNotEmpty
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(Sizes.dimen_30),
+                    child: Image.network(
+                      userChat.photoUrl,
+                      fit: BoxFit.cover,
+                      width: 50,
+                      height: 50,
+                      loadingBuilder: (BuildContext ctx, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(
+                                color: Colors.grey,
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null),
+                          );
+                        }
+                      },
+                      errorBuilder: (context, object, stackTrace) {
+                        return const Icon(Icons.account_circle, size: 50);
+                      },
+                    ),
+                  )
+                : const Icon(
+                    Icons.account_circle,
+                    size: 50,
+                  ),
+            title: Text(
+              userChat.displayName,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+        );
+      }
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+}
