@@ -4,18 +4,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartchat/features/Chat/models/chat_messages.dart';
+import 'package:smartchat/interceptors/di.dart';
 
 import '../../../resources/all_resources.dart';
 
 class ChatProvider {
-  final SharedPreferences prefs;
-  final FirebaseFirestore firebaseFirestore;
-  final FirebaseStorage firebaseStorage;
+  // final SharedPreferences prefs;
+  // final FirebaseFirestore firebaseFirestore;
+  // final FirebaseStorage firebaseStorage;
+  final prefs = sl<SharedPreferences>();
+  final firebaseFirestore = sl<FirebaseFirestore>();
+  final firebaseStorage = sl<FirebaseStorage>();
 
-  ChatProvider(
-      {required this.prefs,
-      required this.firebaseStorage,
-      required this.firebaseFirestore});
+  // ChatProvider(
+  //     {required this.prefs,
+  //     required this.firebaseStorage,
+  //     required this.firebaseFirestore});
 
   UploadTask uploadImageFile(File image, String filename) {
     Reference reference = firebaseStorage.ref().child(filename);

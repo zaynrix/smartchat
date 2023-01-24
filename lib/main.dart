@@ -7,7 +7,11 @@ import 'package:provider/provider.dart';
 import 'package:smartchat/routing/navigation.dart';
 import 'package:smartchat/routing/router.dart';
 import 'package:smartchat/routing/routes.dart';
+import 'package:smartchat/utils/appConfig.dart';
 
+import 'features/Chat/providers/chat_provider.dart';
+import 'features/Chat/providers/profile_provider.dart';
+import 'features/Home/providers/home_provider.dart';
 import 'features/Registration/providers/auth_provider.dart';
 import 'interceptors/di.dart';
 import 'resources/all_resources.dart';
@@ -15,7 +19,10 @@ import 'resources/all_resources.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   await init();
+
+  sl<AppConfig>().loadData();
 
   // Device Status Bar Color
   SystemChrome.setSystemUIOverlayStyle(
@@ -52,27 +59,11 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MultiProvider(
             providers: [
-              // ChangeNotifierProvider.value(value: HomeNotifier()),
-              // ChangeNotifierProvider.value(value: CallNotifier()),
               ChangeNotifierProvider<AuthProvider>(
-                  create: (_) => AuthProvider(
-                      // firebaseFirestore: firebaseFirestore,
-                      // googleSignIn: GoogleSignIn(),
-                      // firebaseAuth: FirebaseAuth.instance
-                      //
-                      )),
-              // Provider<ProfileProvider>(
-              //     create: (_) => ProfileProvider(
-              //         prefs: prefs,
-              //         firebaseFirestore: firebaseFirestore,
-              //         firebaseStorage: firebaseStorage)),
-              // Provider<HomeProvider>(
-              //     create: (_) => HomeProvider(firebaseFirestore: firebaseFirestore)),
-              // Provider<ChatProvider>(
-              //     create: (_) => ChatProvider(
-              //         prefs: prefs,
-              //         firebaseStorage: firebaseStorage,
-              //         firebaseFirestore: firebaseFirestore))
+                  create: (_) => AuthProvider()),
+              Provider<ProfileProvider>(create: (_) => ProfileProvider()),
+              Provider<HomeProvider>(create: (_) => HomeProvider()),
+              Provider<ChatProvider>(create: (_) => ChatProvider())
             ],
             child: MaterialApp(
               localizationsDelegates: context.localizationDelegates,

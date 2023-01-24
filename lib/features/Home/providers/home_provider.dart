@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smartchat/interceptors/di.dart';
 import 'package:smartchat/resources/all_resources.dart';
 
 class HomeProvider {
-  final FirebaseFirestore firebaseFirestore;
+  // final FirebaseFirestore firebaseFirestore;
 
-  HomeProvider({required this.firebaseFirestore});
-
+  HomeProvider();
+  final firebaseFirestore = sl<FirebaseFirestore>();
   Future<void> updateFirestoreData(
       String collectionPath, String path, Map<String, dynamic> updateData) {
     return firebaseFirestore
