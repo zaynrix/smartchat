@@ -27,12 +27,13 @@ import 'dio_interceptor.dart';
 import 'logger_interceptor.dart';
 
 final sl = GetIt.instance;
-final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
 
 Future<void> init() async {
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
   Dio client = Dio(
     BaseOptions(
       receiveDataWhenStatusError: true,
@@ -60,6 +61,7 @@ Future<void> init() async {
   // sl.registerLazySingleton(() => HomeProvider());
   // sl.registerLazySingleton(() => SettingProvider());
   sl.registerLazySingleton<FirebaseAuth>(() => firebaseAuth);
+  sl.registerLazySingleton<FirebaseStorage>(() => firebaseStorage);
   sl.registerLazySingleton<GoogleSignIn>(() => googleSignIn);
   sl.registerLazySingleton<FirebaseFirestore>(() => firebaseFirestore);
 

@@ -17,10 +17,6 @@ enum Status {
 }
 
 class AuthProvider extends ChangeNotifier {
-  // final GoogleSignIn googleSignIn;
-  // final FirebaseAuth firebaseAuth;
-  // final FirebaseFirestore firebaseFirestore;
-
   Status _status = Status.uninitialized;
 
   Status get status => _status;
@@ -32,13 +28,17 @@ class AuthProvider extends ChangeNotifier {
       //   required this.firebaseFirestore,
       // }
       );
-
+  final googleSignIn = sl<GoogleSignIn>();
+  final firebaseAuth = sl<FirebaseAuth>();
+  final firebaseFirestore = sl<FirebaseFirestore>();
+  // final FirebaseAuth firebaseAuth;
+  // final FirebaseFirestore firebaseFirestore;
   String? getFirebaseUserId() {
     return sl<SharedPreferences>().getString(FirestoreConstants.id);
   }
 
   Future<bool> isLoggedIn() async {
-    bool isLoggedIn = await googleSignIn.isSignedIn();
+    bool isLoggedIn = await sl<GoogleSignIn>().isSignedIn();
     if (isLoggedIn &&
         sl<SharedPreferences>().getString(FirestoreConstants.id)?.isNotEmpty ==
             true) {
@@ -52,7 +52,7 @@ class AuthProvider extends ChangeNotifier {
     _status = Status.authenticating;
     notifyListeners();
 
-    final googleUser = await googleSignIn.signIn();
+    final googleUser = await sl<GoogleSignIn>().signIn();
     if (googleUser != null) {
       GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(

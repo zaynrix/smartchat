@@ -22,17 +22,19 @@ class AppConfig extends ChangeNotifier {
   // var shared = sl<SharedLocal>();
 
   Future<Timer> loadData() async {
-    return Timer(const Duration(seconds: 5), onDoneLoading);
+    return Timer(const Duration(seconds: 1), onDoneLoading);
   }
 
   onDoneLoading() async {
     final authProvider = sl<AuthProvider>();
     bool isLoggedIn = await authProvider.isLoggedIn();
+    print(" is is bool $isLoggedIn");
     if (isLoggedIn) {
       sl<NavigationService>().navigateToAndRemove(Routes.home);
       return;
+    } else {
+      sl<NavigationService>().navigateToAndRemove(Routes.login);
     }
-    sl<NavigationService>().navigateToAndRemove(Routes.login);
 
     // Navigator.pushReplacement(
     //     context, MaterialPageRoute(builder: (context) => const LoginPage()));
