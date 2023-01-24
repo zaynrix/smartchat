@@ -1,23 +1,17 @@
 import 'dart:io';
-
+import 'package:smartchat/interceptors/firebase_config.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:record_mp3/record_mp3.dart';
 import 'package:smartchat/features/Chat/models/chat_messages.dart';
 import 'package:smartchat/features/Registration/screens/loginScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:voice_message_package/voice_message_package.dart';
-
-import '';
 import '../../../resources/all_resources.dart';
 import '../../Home/widgets/all_widgets.dart';
 import '../../Registration/providers/auth_provider.dart';
@@ -243,14 +237,14 @@ class _ChatPageState extends State<ChatPage> {
         centerTitle: true,
         title: Text('Chatting with ${widget.peerNickname}'.trim()),
         actions: [
-          Consumer(
-            builder: (context, HomeNotifier homeNotifier, child) => IconButton(
-              onPressed: () {
-                homeNotifier.onJoin(context, "yahya");
-              },
-              icon: const Icon(Icons.video_call),
-            ),
-          ),
+          // Consumer(
+          //   builder: (context, HomeNotifier homeNotifier, child) => IconButton(
+          //     onPressed: () {
+          //       homeNotifier.onJoin(context, "yahya");
+          //     },
+          //     icon: const Icon(Icons.video_call),
+          //   ),
+          // ),
           IconButton(
             onPressed: () {
               ProfileProvider profileProvider;
