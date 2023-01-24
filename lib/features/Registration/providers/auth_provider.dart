@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartchat/interceptors/di.dart';
 
 import '../../../resources/all_resources.dart';
 import '../../Chat/models/chat_user.dart';
@@ -16,29 +17,31 @@ enum Status {
 }
 
 class AuthProvider extends ChangeNotifier {
-  final GoogleSignIn googleSignIn;
-  final FirebaseAuth firebaseAuth;
-  final FirebaseFirestore firebaseFirestore;
-  final SharedPreferences prefs;
+  // final GoogleSignIn googleSignIn;
+  // final FirebaseAuth firebaseAuth;
+  // final FirebaseFirestore firebaseFirestore;
 
   Status _status = Status.uninitialized;
 
   Status get status => _status;
 
   AuthProvider(
-      {required this.googleSignIn,
-      required this.firebaseAuth,
-      required this.firebaseFirestore,
-      required this.prefs});
+      //     {
+      //   required this.googleSignIn,
+      //   required this.firebaseAuth,
+      //   required this.firebaseFirestore,
+      // }
+      );
 
   String? getFirebaseUserId() {
-    return prefs.getString(FirestoreConstants.id);
+    return sl<SharedPreferences>().getString(FirestoreConstants.id);
   }
 
   Future<bool> isLoggedIn() async {
     bool isLoggedIn = await googleSignIn.isSignedIn();
     if (isLoggedIn &&
-        prefs.getString(FirestoreConstants.id)?.isNotEmpty == true) {
+        sl<SharedPreferences>().getString(FirestoreConstants.id)?.isNotEmpty ==
+            true) {
       return true;
     } else {
       return false;
@@ -79,22 +82,25 @@ class AuthProvider extends ChangeNotifier {
           });
 
           User? currentUser = firebaseUser;
-          await prefs.setString(FirestoreConstants.id, currentUser.uid);
-          await prefs.setString(
+          await sl<SharedPreferences>()
+              .setString(FirestoreConstants.id, currentUser.uid);
+          await sl<SharedPreferences>().setString(
               FirestoreConstants.displayName, currentUser.displayName ?? "");
-          await prefs.setString(
+          await sl<SharedPreferences>().setString(
               FirestoreConstants.photoUrl, currentUser.photoURL ?? "");
-          await prefs.setString(
+          await sl<SharedPreferences>().setString(
               FirestoreConstants.phoneNumber, currentUser.phoneNumber ?? "");
         } else {
           DocumentSnapshot documentSnapshot = document[0];
           ChatUser userChat = ChatUser.fromDocument(documentSnapshot);
-          await prefs.setString(FirestoreConstants.id, userChat.id);
-          await prefs.setString(
-              FirestoreConstants.displayName, userChat.displayName);
-          await prefs.setString(FirestoreConstants.aboutMe, userChat.aboutMe);
-          await prefs.setString(
-              FirestoreConstants.phoneNumber, userChat.phoneNumber);
+          await sl<SharedPreferences>()
+              .setString(FirestoreConstants.id, userChat.id);
+          await sl<SharedPreferences>()
+              .setString(FirestoreConstants.displayName, userChat.displayName);
+          await sl<SharedPreferences>()
+              .setString(FirestoreConstants.aboutMe, userChat.aboutMe);
+          await sl<SharedPreferences>()
+              .setString(FirestoreConstants.phoneNumber, userChat.phoneNumber);
         }
         _status = Status.authenticated;
         notifyListeners();

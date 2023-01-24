@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:smartchat/interceptors/firebase_config.dart';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,8 +10,10 @@ import 'package:provider/provider.dart';
 import 'package:record_mp3/record_mp3.dart';
 import 'package:smartchat/features/Chat/models/chat_messages.dart';
 import 'package:smartchat/features/Registration/screens/loginScreen.dart';
+import 'package:smartchat/interceptors/firebase_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:voice_message_package/voice_message_package.dart';
+
 import '../../../resources/all_resources.dart';
 import '../../Home/widgets/all_widgets.dart';
 import '../../Registration/providers/auth_provider.dart';

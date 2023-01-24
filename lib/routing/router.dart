@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartchat/features/Home/screens/homeScreen.dart';
+import 'package:smartchat/features/Registration/providers/auth_provider.dart';
+import 'package:smartchat/features/Registration/screens/loginScreen.dart';
 import 'package:smartchat/features/splashScreen.dart';
 import 'package:smartchat/interceptors/di.dart';
 import 'package:smartchat/routing/routes.dart';
@@ -37,14 +40,14 @@ class RouterX {
       //   );
       //
       // // ------------- Login Screen ---------------
-      // case Routes.login:
-      //   return MaterialPageRoute(
-      //     builder: (_) => ChangeNotifierProvider.value(
-      //       value: sl<AuthProvider>(),
-      //       child: LoginScreen(),
-      //     ),
-      //   );
-      //
+      case Routes.login:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider.value(
+            value: sl<AuthProvider>(),
+            child: LoginPage(),
+          ),
+        );
+
       // // ------------- Forget Password Screen ---------------
       // case Routes.forgetPassword:
       //   return MaterialPageRoute(
@@ -76,12 +79,12 @@ class RouterX {
       //
       // // ------------- Registration Screen ---------------
       //
-      // case Routes.home:
-      //   return MaterialPageRoute(
-      //     builder: (_) => HomeScreen(),
-      //   );
+      case Routes.home:
+        return MaterialPageRoute(
+          builder: (_) => HomePage(),
+        );
+
       //
-      // //
 
       // ------------- Default Route ---------------
       default:

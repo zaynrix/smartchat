@@ -1,9 +1,11 @@
 // import 'dart:convert';
-// class SharedLocal {
-//   final SharedPreferences sharedPreferences;
-//
-//   SharedLocal({required this.sharedPreferences});
-//
+import 'package:shared_preferences/shared_preferences.dart';
+
+class SharedLocal {
+  final SharedPreferences sharedPreferences;
+
+  SharedLocal({required this.sharedPreferences});
+}
 //   // ---------- User Information ----------
 //
 //   Future<bool> setUser(User.Data user) async {

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:smartchat/features/Registration/providers/auth_provider.dart';
 import 'package:smartchat/interceptors/di.dart';
 import 'package:smartchat/interceptors/dio_exception.dart';
 import 'package:smartchat/resources/color_manager.dart';
 import 'package:smartchat/routing/navigation.dart';
+import 'package:smartchat/routing/routes.dart';
 // import 'package:bond_template/routing/routes.dart';
 // import 'package:smartchat/routing/navigation.dart';
 // import '../interceptors/dio_exception.dart';
@@ -20,10 +22,20 @@ class AppConfig extends ChangeNotifier {
   // var shared = sl<SharedLocal>();
 
   Future<Timer> loadData() async {
-    return Timer(const Duration(seconds: 3), onDoneLoading);
+    return Timer(const Duration(seconds: 5), onDoneLoading);
   }
 
   onDoneLoading() async {
+    final authProvider = sl<AuthProvider>();
+    bool isLoggedIn = await authProvider.isLoggedIn();
+    if (isLoggedIn) {
+      sl<NavigationService>().navigateToAndRemove(Routes.home);
+      return;
+    }
+    sl<NavigationService>().navigateToAndRemove(Routes.login);
+
+    // Navigator.pushReplacement(
+    //     context, MaterialPageRoute(builder: (context) => const LoginPage()));
     // if (shared.firstIntro == true) {
     //   if (shared.getUser().accessToken == null) {
     //     sl<NavigationService>().navigateToAndRemove(Routes.login);

@@ -6,7 +6,7 @@ const String ICON_PATHColored = 'assets/icons/Colored';
 const String ICON_PATHbasic = 'assets/icons/basic';
 
 class ImageAssets {
-  static const String splashLogoPng = "$IMAGE_PATH/logo.png";
+  static const String splashLogoPng = "$IMAGE_PATH/splash.png";
   static const String mapImage = "$IMAGE_PATH/map.png";
   static const String noNote = "$IMAGE_PATH/noNote.svg";
   static const String banner2 = "$IMAGE_PATH/banner2.png";
