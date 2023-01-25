@@ -4,7 +4,7 @@ import '../resources/assets_manager.dart';
 
 //
 //
-
+//
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
