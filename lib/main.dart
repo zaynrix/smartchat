@@ -83,6 +83,7 @@ class MyApp extends StatelessWidget {
               navigatorKey: sl<NavigationService>().navigatorKey,
               // Custom Theme
               theme: getApplicationTheme(),
+              // On Generate Routing
               initialRoute: Routes.splash,
               onGenerateRoute: RouterX.generateRoute,
             ),
