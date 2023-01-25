@@ -77,7 +77,7 @@ class RouterX {
       //     ),
       //   );
       //
-      // // ------------- Registration Screen ---------------
+      // // ------------- Home Screen ---------------
       //
       case Routes.home:
         return MaterialPageRoute(

@@ -30,7 +30,7 @@ void main() async {
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark),
   );
-
+  // Localization
   runApp(
     EasyLocalization(
       supportedLocales: [
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
+          // Provider
           return MultiProvider(
             providers: [
               ChangeNotifierProvider<AuthProvider>(
