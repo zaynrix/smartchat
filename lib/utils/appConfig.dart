@@ -9,23 +9,13 @@ import 'package:smartchat/resources/color_manager.dart';
 import 'package:smartchat/routing/navigation.dart';
 import 'package:smartchat/routing/routes.dart';
 
-// import 'package:bond_template/routing/routes.dart';
-// import 'package:smartchat/routing/navigation.dart';
-// import '../interceptors/dio_exception.dart';
-// import 'package:bond_template/interceptors/di.dart';
-// import 'package:bond_template/routing/navigation.dart';
-// import 'package:bond_template/api/local/local_pref.dart';
-// import 'package:bond_template/resources/color_manager.dart';
-// import 'package:bond_template/features/Registration/homeProvider.dart';
-// import 'package:easy_localization/easy_localization.dart';
-
 class AppConfig extends ChangeNotifier {
-  // var shared = sl<SharedLocal>();
-
+  // Delay Function
   Future<Timer> loadData() async {
     return Timer(const Duration(seconds: 3), onDoneLoading);
   }
 
+  // OnBoarding Function
   onDoneLoading() async {
     final authProvider = sl<AuthProvider>();
     bool isLoggedIn = await authProvider.isLoggedIn();
@@ -37,10 +27,7 @@ class AppConfig extends ChangeNotifier {
     }
   }
 
-  // TextTheme getTextContext(BuildContext context) {
-  //   return Theme.of(context).textTheme;
-  // }
-
+  // SnackBar Utilities
   static showSnakBar(String content, {bool Success = false}) {
     return sl<NavigationService>()
         .snackBarKey
@@ -54,6 +41,7 @@ class AppConfig extends ChangeNotifier {
         ));
   }
 
+  // Exception Utility
   showException(DioError e) {
     final errorMessage = DioExceptions.fromDioError(e).toString();
     AppConfig.showSnakBar(

@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:smartchat/features/Chat/screens/chat_screen.dart';
 import 'package:smartchat/features/Home/screens/profileScreen.dart';
 import 'package:smartchat/features/Registration/screens/loginScreen.dart';
-import 'package:smartchat/utils/debouncer.dart';
 import 'package:smartchat/utils/keyboard_utils.dart';
 
 import '../../../resources/all_resources.dart';
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   late String currentUserId;
   late HomeProvider homeProvider;
 
-  Debouncer searchDebouncer = Debouncer(milliseconds: 300);
+  // Debouncer searchDebouncer = Debouncer(milliseconds: 300);
   StreamController<bool> buttonClearController = StreamController<bool>();
   TextEditingController searchTextEditingController = TextEditingController();
 

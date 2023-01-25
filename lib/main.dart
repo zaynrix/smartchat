@@ -20,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  // Initialize instances
   await init();
 
   sl<AppConfig>().loadData();
