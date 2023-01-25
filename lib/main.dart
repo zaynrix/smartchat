@@ -72,13 +72,16 @@ class MyApp extends StatelessWidget {
               Provider<ChatProvider>(create: (_) => ChatProvider())
             ],
             child: MaterialApp(
+              // Localization properties
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: context.locale,
+              //
               scaffoldMessengerKey: sl<NavigationService>().snackBarKey,
               debugShowCheckedModeBanner: false,
               title: 'Smart Chat',
               navigatorKey: sl<NavigationService>().navigatorKey,
+              // Custom Theme
               theme: getApplicationTheme(),
               initialRoute: Routes.splash,
               onGenerateRoute: RouterX.generateRoute,
