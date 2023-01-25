@@ -61,10 +61,14 @@ class MyApp extends StatelessWidget {
           // Provider
           return MultiProvider(
             providers: [
+              // Auth Provider
               ChangeNotifierProvider<AuthProvider>(
                   create: (_) => AuthProvider()),
+              // Profile Provider
               Provider<ProfileProvider>(create: (_) => ProfileProvider()),
+              // Home Provider
               Provider<HomeProvider>(create: (_) => HomeProvider()),
+              // Chat Provider
               Provider<ChatProvider>(create: (_) => ChatProvider())
             ],
             child: MaterialApp(
