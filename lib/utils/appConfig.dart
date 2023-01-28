@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:smartchat/features/Registration/providers/auth_provider.dart';
 import 'package:smartchat/interceptors/di.dart';
-import 'package:smartchat/interceptors/dio_exception.dart';
-import 'package:smartchat/resources/color_manager.dart';
 import 'package:smartchat/routing/navigation.dart';
 import 'package:smartchat/routing/routes.dart';
 
@@ -27,25 +24,25 @@ class AppConfig extends ChangeNotifier {
     }
   }
 
-  // SnackBar Utilities
-  static showSnakBar(String content, {bool Success = false}) {
-    return sl<NavigationService>()
-        .snackBarKey
-        .currentState
-        ?.showSnackBar(SnackBar(
-          content: Text(
-            content.trim(),
-          ),
-          backgroundColor: Success ? ColorManager.primary : ColorManager.red,
-          behavior: SnackBarBehavior.floating,
-        ));
-  }
-
-  // Exception Utility
-  showException(DioError e) {
-    final errorMessage = DioExceptions.fromDioError(e).toString();
-    AppConfig.showSnakBar(
-        "${e.response != null && e.response!.data["message"] != "" ? e.message : errorMessage}",
-        Success: false);
-  }
+// SnackBar Utilities
+// static showSnakBar(String content, {bool Success = false}) {
+//   return sl<NavigationService>()
+//       .snackBarKey
+//       .currentState
+//       ?.showSnackBar(SnackBar(
+//         content: Text(
+//           content.trim(),
+//         ),
+//         backgroundColor: Success ? ColorManager.primary : ColorManager.red,
+//         behavior: SnackBarBehavior.floating,
+//       ));
+// }
+//
+// // Exception Utility
+// showException(DioError e) {
+//   final errorMessage = DioExceptions.fromDioError(e).toString();
+//   AppConfig.showSnakBar(
+//       "${e.response != null && e.response!.data["message"] != "" ? e.message : errorMessage}",
+//       Success: false);
+// }
 }
