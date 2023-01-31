@@ -12,7 +12,7 @@ class ChatMessages {
 
   ChatMessages(
       {required this.idFrom,
-      required this.seen,
+      this.seen = true,
       required this.idTo,
       required this.timestamp,
       required this.content,
@@ -35,10 +35,10 @@ class ChatMessages {
     String timestamp = documentSnapshot.get(FirestoreConstants.timestamp);
     String content = documentSnapshot.get(FirestoreConstants.content);
     int type = documentSnapshot.get(FirestoreConstants.type);
-    bool seen = documentSnapshot.get(FirestoreConstants.seen);
+    // bool seen = documentSnapshot.get(FirestoreConstants.seen) ?? true;
 
     return ChatMessages(
-        seen: seen,
+        // seen: seen,
         idFrom: idFrom,
         idTo: idTo,
         timestamp: timestamp,
