@@ -363,12 +363,6 @@ class _HomePageState extends State<HomePage> {
               userChat.displayName,
               style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
-            // trailing: Consumer<ChatProvider>(
-            //   builder: (context, chatProvider, child) =>
-            //      StreamBuilder<dynamic>(
-            //         stream: chatProvider.getChatMessage(
-            //             "${listMessages[.length]}",
-            //             _limit),
             //         builder:
             //             (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             //           if (snapshot.hasData) {
