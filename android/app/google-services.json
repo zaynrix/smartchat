@@ -23,7 +23,7 @@
           }
         },
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -39,7 +39,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -70,7 +70,7 @@
           }
         },
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -86,7 +86,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -117,7 +117,7 @@
           }
         },
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -133,7 +133,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -156,7 +156,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -172,7 +172,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -203,7 +203,7 @@
           }
         },
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -219,7 +219,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -235,14 +235,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:669134402500:android:e274abca4a5bc681d72a91",
+        "mobilesdk_app_id": "1:669134402500:android:8e0be4cac3f5916ad72a91",
         "android_client_info": {
           "package_name": "com.tecvalley.smartchat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "669134402500-85c42nju2stoar4iplf5cpg3bjgc4bcm.apps.googleusercontent.com",
+          "client_id": "669134402500-7ige82oc2dov5dq147ucn6mhj012jio7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tecvalley.smartchat",
@@ -250,7 +250,7 @@
           }
         },
         {
-          "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+          "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -266,7 +266,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "669134402500-6lck77rcgq10tap8ea2ke3683lr3cfga.apps.googleusercontent.com",
+              "client_id": "669134402500-255ke008h6nbqhis510kkopit16um06c.apps.googleusercontent.com",
               "client_type": 3
             },
             {

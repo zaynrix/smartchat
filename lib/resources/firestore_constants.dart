@@ -8,6 +8,7 @@ class FirestoreConstants {
   static const id = "id";
   static const chattingWith = "chattingWith";
   static const idFrom = "idFrom";
+  static const seen = "seen";
   static const idTo = "idTo";
   static const timestamp = "timestamp";
   static const content = "content";

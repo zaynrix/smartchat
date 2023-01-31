@@ -53,16 +53,20 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               vertical30,
-              const Text(
-                'Login to continue',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: Sizes.dimen_22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              vertical50,
-              Center(child: Image.asset('assets/images/back.png')),
+              // const Text(
+              //   'Login to continue',
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //     fontSize: Sizes.dimen_22,
+              //     fontWeight: FontWeight.w500,
+              //   ),
+              // ),
+              // vertical50,
+              Center(
+                  child: Image.asset(
+                'assets/images/back.png',
+                width: MediaQuery.of(context).size.width * 0.7,
+              )),
               vertical50,
               GestureDetector(
                 onTap: () async {

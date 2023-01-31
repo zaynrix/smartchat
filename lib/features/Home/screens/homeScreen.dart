@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
   late String currentUserId;
   late HomeProvider homeProvider;
 
-  // Debouncer searchDebouncer = Debouncer(milliseconds: 300);
   StreamController<bool> buttonClearController = StreamController<bool>();
   TextEditingController searchTextEditingController = TextEditingController();
 
@@ -139,6 +138,8 @@ class _HomePageState extends State<HomePage> {
     print("In else");
   }
 
+  List<QueryDocumentSnapshot> listMessages = [];
+
   @override
   void dispose() {
     super.dispose();
@@ -157,7 +158,6 @@ class _HomePageState extends State<HomePage> {
           MaterialPageRoute(builder: (context) => const LoginPage()),
           (Route<dynamic> route) => false);
     }
-
     scrollController.addListener(scrollListener);
   }
 
@@ -326,7 +326,7 @@ class _HomePageState extends State<HomePage> {
           child: ListTile(
             leading: userChat.photoUrl.isNotEmpty
                 ? ClipRRect(
-                    borderRadius: BorderRadius.circular(Sizes.dimen_30),
+                    borderRadius: BorderRadius.circular(Sizes.dimen_6),
                     child: Image.network(
                       userChat.photoUrl,
                       fit: BoxFit.cover,
@@ -361,9 +361,76 @@ class _HomePageState extends State<HomePage> {
                   ),
             title: Text(
               userChat.displayName,
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
+            // trailing: Consumer<ChatProvider>(
+            //   builder: (context, chatProvider, child) =>
+            //      StreamBuilder<dynamic>(
+            //         stream: chatProvider.getChatMessage(
+            //             "${listMessages[.length]}",
+            //             _limit),
+            //         builder:
+            //             (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //           if (snapshot.hasData) {
+            //             listMessages = snapshot.data!.docs;
+            //             ChatMessages chatMessages =
+            //                 ChatMessages.fromDocument(snapshot.data!.docs.first);
+            //
+            //             if (listMessages.isNotEmpty) {
+            //               return Text(
+            //                 DateFormat('dd MMM yyyy, hh:mm a').format(
+            //                   DateTime.fromMillisecondsSinceEpoch(
+            //                     int.parse(chatMessages.timestamp),
+            //                   ),
+            //                 ),
+            //                 style: const TextStyle(
+            //                     color: ColorManager.lightGrey,
+            //                     fontSize: Sizes.dimen_12,
+            //                     fontStyle: FontStyle.italic),
+            //               );
+            //             } else {
+            //               return const Center(
+            //                 child: Text('No messages...'),
+            //               );
+            //             }
+            //           } else {
+            //             return const Center(
+            //               child: CircularProgressIndicator(
+            //                 color: ColorManager.burgundy,
+            //               ),
+            //             );
+            //           }
+            //         }),
+            //   ),
           ),
+          // subtitle: Consumer<ChatProvider>(
+          //   builder: (context, chatProvider, child) => StreamBuilder<
+          //           QuerySnapshot>(
+          //       stream: chatProvider.getChatMessage(
+          //           "xup7dQlszgVXgWXt1BTOJRdpQpN2 - 0BOR2NvPp8ePgHJLBcyG8tv2n0l1",
+          //           _limit),
+          //       builder: (BuildContext context,
+          //           AsyncSnapshot<QuerySnapshot> snapshot) {
+          //         if (snapshot.hasData) {
+          //           listMessages = snapshot.data!.docs;
+          //           ChatMessages chatMessages =
+          //               ChatMessages.fromDocument(snapshot.data!.docs.first);
+          //
+          //           if (listMessages.isNotEmpty) {
+          //             return Text("${chatMessages.content}");
+          //           } else {
+          //             return Text('No messages...');
+          //           }
+          //         } else {
+          //           return const Center(
+          //             child: CircularProgressIndicator(
+          //               color: ColorManager.burgundy,
+          //             ),
+          //           );
+          //         }
+          //       }),
+          // ),
+          // ),
         );
       }
     } else {

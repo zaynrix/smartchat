@@ -167,7 +167,7 @@ class _ChatPageState extends State<ChatPage> {
       imageUrl = await snapshot.ref.getDownloadURL();
       setState(() {
         isLoading = false;
-        onSendMessage(imageUrl, MessageType.image);
+        onSendMessage(imageUrl, MessageType.image, true);
       });
     } on FirebaseException catch (e) {
       setState(() {
@@ -179,7 +179,7 @@ class _ChatPageState extends State<ChatPage> {
 
   bool isSending = false;
 
-  void onSendMessage(String content, int type) {
+  void onSendMessage(String content, int type, bool seen) {
     setState(() {
       isSending = true;
     });
@@ -187,7 +187,7 @@ class _ChatPageState extends State<ChatPage> {
       textEditingController.clear();
       Future.delayed(Duration(seconds: 1), () {
         chatProvider.sendChatMessage(
-            content, type, groupChatId, currentUserId, widget.peerId);
+            content, type, groupChatId, currentUserId, widget.peerId, seen);
         setState(() {
           isSending = false;
         });
@@ -464,7 +464,8 @@ class _ChatPageState extends State<ChatPage> {
                   decoration:
                       kTextInputDecoration.copyWith(hintText: 'write here...'),
                   onSubmitted: (value) {
-                    onSendMessage(textEditingController.text, MessageType.text);
+                    onSendMessage(
+                        textEditingController.text, MessageType.text, false);
                   },
                 )),
           SizedBox(
@@ -507,7 +508,8 @@ class _ChatPageState extends State<ChatPage> {
             ),
             child: IconButton(
               onPressed: () {
-                onSendMessage(textEditingController.text, MessageType.text);
+                onSendMessage(
+                    textEditingController.text, MessageType.text, true);
               },
               icon: const Icon(Icons.send_rounded),
               color: ColorManager.white,

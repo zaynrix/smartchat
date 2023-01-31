@@ -45,14 +45,32 @@ class ChatProvider {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> getChatMessageChats(int limit) {
+    return firebaseFirestore
+        .collection(FirestoreConstants.pathMessageCollection)
+        // .doc(groupChatId)
+        // .collection(groupChatId)
+        // .orderBy(FirestoreConstants.timestamp, descending: true)
+        // .limit(limit)
+        .snapshots();
+  }
+
+  Stream<dynamic> getChatMessageSeen(String groupChatId, int limit) {
+    return firebaseFirestore
+        .collection(FirestoreConstants.pathMessageCollection)
+        .doc(groupChatId)
+        .snapshots();
+  }
+
   void sendChatMessage(String content, int type, String groupChatId,
-      String currentUserId, String peerId) {
+      String currentUserId, String peerId, bool seen) {
     DocumentReference documentReference = firebaseFirestore
         .collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
         .collection(groupChatId)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
     ChatMessages chatMessages = ChatMessages(
+        seen: seen,
         idFrom: currentUserId,
         idTo: peerId,
         timestamp: DateTime.now().millisecondsSinceEpoch.toString(),

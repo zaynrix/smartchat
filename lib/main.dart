@@ -16,6 +16,7 @@ import 'features/Registration/providers/auth_provider.dart';
 import 'interceptors/di.dart';
 import 'resources/all_resources.dart';
 
+//
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
