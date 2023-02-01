@@ -556,7 +556,7 @@ class _ChatPageState extends State<ChatPage> {
                           onPressed: getImage,
                           icon: const Icon(
                             Icons.camera_alt_outlined,
-                            size: Sizes.dimen_20,
+                            size: 18,
                           ),
                           color: ColorManager.fontColor,
                         ),
