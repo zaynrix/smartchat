@@ -511,7 +511,6 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget buildMessageInput() {
     return SizedBox(
-      // height: 50,
       width: double.infinity,
       child: Row(
         children: [
@@ -520,7 +519,6 @@ class _ChatPageState extends State<ChatPage> {
                   child: Container(
                     width: double.infinity,
                     height: 50,
-                    // color: Colors.red,
                     child: Center(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -577,9 +575,6 @@ class _ChatPageState extends State<ChatPage> {
                               hintText: 'Type your message',
                               hintStyle: TextStyle(
                                   color: ColorManager.greyColor, fontSize: 16),
-
-                              // prefix:
-                              //                         ),
                             ),
                           ),
                         ),
@@ -596,38 +591,37 @@ class _ChatPageState extends State<ChatPage> {
                         )),
                   ),
                 ),
-          // SizedBox(
-          //   width: 5,
-          // ),
           Container(
-              height: 50,
-              margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                    color: isRecording ? Colors.white : Colors.black12,
-                    spreadRadius: 4)
-              ], color: ColorManager.spaceCadet, shape: BoxShape.circle),
-              child: GestureDetector(
-                onLongPress: () {
-                  startRecord();
-                  setState(() {
-                    isRecording = true;
-                  });
-                },
-                onLongPressEnd: (details) {
-                  stopRecord();
-                  setState(() {
-                    isRecording = false;
-                  });
-                },
-                child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(
-                      Icons.mic,
-                      color: Colors.white,
-                      size: 20,
-                    )),
-              )),
+            height: 50,
+            margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: isRecording ? Colors.white : Colors.black12,
+                  spreadRadius: 4)
+            ], color: ColorManager.spaceCadet, shape: BoxShape.circle),
+            child: GestureDetector(
+              onLongPress: () {
+                startRecord();
+                setState(() {
+                  isRecording = true;
+                });
+              },
+              onLongPressEnd: (details) {
+                stopRecord();
+                setState(() {
+                  isRecording = false;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.mic,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ),
           Container(
             margin: const EdgeInsets.only(left: Sizes.dimen_4),
             decoration: BoxDecoration(
@@ -667,7 +661,8 @@ class _ChatPageState extends State<ChatPage> {
               children: [
                 chatMessages.type == MessageType.audio
                     ? VoiceMessage(
-                        meBgColor: ColorManager.spaceLight,
+                        contactFgColor: ColorManager.myMessagesColor,
+                        meBgColor: ColorManager.backgroundColor,
                         audioSrc: '${chatMessages.content}',
                         played: true,
                         me: false,
@@ -813,13 +808,12 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                 chatMessages.type == MessageType.audio
                     ? VoiceMessage(
-                        meBgColor: ColorManager.burgundy,
+                        contactFgColor: ColorManager.peerMessagesColor,
+                        meBgColor: ColorManager.backgroundColor,
                         audioSrc: '${chatMessages.content}',
                         played: true,
-                        // To show played badge or not.
                         me: true,
                         noiseCount: 1,
-                        // Set message side.
                         onPlay: () {
                           _loadFile('${chatMessages.content}');
                         }, // Do something when voice played.
