@@ -631,7 +631,7 @@ class _ChatPageState extends State<ChatPage> {
             margin: const EdgeInsets.only(left: Sizes.dimen_4),
             decoration: BoxDecoration(
               color: ColorManager.myMessagesColor,
-              borderRadius: BorderRadius.circular(Sizes.dimen_10),
+              borderRadius: BorderRadius.circular(Sizes.dimen_12),
             ),
             child: IconButton(
               onPressed: () {
