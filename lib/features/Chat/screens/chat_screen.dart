@@ -234,8 +234,61 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorManager.backgroundColor,
+        leadingWidth: 30,
         centerTitle: false,
-        title: Text('Chatting with ${widget.peerNickname}'.trim()),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            children: [
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Sizes.dimen_6),
+                ),
+                child: Image.network(
+                  widget.peerAvatar,
+                  width: Sizes.dimen_40,
+                  height: Sizes.dimen_40,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext ctx, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.burgundy,
+                        value: loadingProgress.expectedTotalBytes != null &&
+                                loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, object, stackTrace) {
+                    return const Icon(
+                      Icons.account_circle,
+                      size: 35,
+                      color: ColorManager.greyColor,
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  '${widget.peerNickname}'.trim(),
+                  style: TextStyle(
+                    color: ColorManager.fontColor,
+                  ),
+                  overflow: TextOverflow.visible,
+                ),
+              ),
+            ],
+          ),
+        ),
         actions: [
           // Consumer(
           //   builder: (context, HomeNotifier homeNotifier, child) => IconButton(
@@ -245,16 +298,31 @@ class _ChatPageState extends State<ChatPage> {
           //     icon: const Icon(Icons.video_call),
           //   ),
           // ),
-          IconButton(
-            onPressed: () {
-              ProfileProvider profileProvider;
-              profileProvider = context.read<ProfileProvider>();
-              String callPhoneNumber =
-                  profileProvider.getPrefs(FirestoreConstants.phoneNumber) ??
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                border: Border.all(color: ColorManager.greyColor),
+                borderRadius: BorderRadius.circular(Sizes.dimen_6),
+              ),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  ProfileProvider profileProvider;
+                  profileProvider = context.read<ProfileProvider>();
+                  String callPhoneNumber = profileProvider
+                          .getPrefs(FirestoreConstants.phoneNumber) ??
                       "";
-              _callPhoneNumber(callPhoneNumber);
-            },
-            icon: const Icon(Icons.phone),
+                  _callPhoneNumber(callPhoneNumber);
+                },
+                icon: const Icon(
+                  Icons.phone,
+                  color: ColorManager.fontColor,
+                  size: 18,
+                ),
+              ),
+            ),
           ),
         ],
       ),
