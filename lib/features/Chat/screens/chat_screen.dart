@@ -289,6 +289,8 @@ class _ChatPageState extends State<ChatPage> {
             ],
           ),
         ),
+        iconTheme:
+            IconThemeData.fallback().copyWith(color: ColorManager.fontColor,),
         actions: [
           // Consumer(
           //   builder: (context, HomeNotifier homeNotifier, child) => IconButton(
