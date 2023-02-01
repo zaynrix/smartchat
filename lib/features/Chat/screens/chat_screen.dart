@@ -233,10 +233,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //
       appBar: AppBar(
-        //
-        centerTitle: true,
+        centerTitle: false,
         title: Text('Chatting with ${widget.peerNickname}'.trim()),
         actions: [
           // Consumer(
@@ -419,7 +417,7 @@ class _ChatPageState extends State<ChatPage> {
             margin: const EdgeInsets.only(right: Sizes.dimen_4),
             decoration: BoxDecoration(
               color: ColorManager.burgundy,
-              borderRadius: BorderRadius.circular(Sizes.dimen_30),
+              borderRadius: BorderRadius.circular(Sizes.dimen_6),
             ),
             child: IconButton(
               onPressed: getImage,
@@ -504,7 +502,7 @@ class _ChatPageState extends State<ChatPage> {
             margin: const EdgeInsets.only(left: Sizes.dimen_4),
             decoration: BoxDecoration(
               color: ColorManager.burgundy,
-              borderRadius: BorderRadius.circular(Sizes.dimen_30),
+              borderRadius: BorderRadius.circular(Sizes.dimen_6),
             ),
             child: IconButton(
               onPressed: () {
@@ -567,7 +565,7 @@ class _ChatPageState extends State<ChatPage> {
                     ? Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Sizes.dimen_20),
+                          borderRadius: BorderRadius.circular(Sizes.dimen_6),
                         ),
                         child: Image.network(
                           widget.userAvatar,
@@ -638,7 +636,7 @@ class _ChatPageState extends State<ChatPage> {
                     ? Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Sizes.dimen_20),
+                          borderRadius: BorderRadius.circular(Sizes.dimen_6),
                         ),
                         child: Image.network(
                           widget.peerAvatar,
