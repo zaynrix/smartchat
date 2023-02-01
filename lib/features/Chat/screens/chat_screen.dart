@@ -666,17 +666,19 @@ class _ChatPageState extends State<ChatPage> {
               children: [
                 chatMessages.type == MessageType.audio
                     ? VoiceMessage(
-                        contactFgColor: ColorManager.myMessagesColor,
-                        meBgColor: ColorManager.backgroundColor,
                         audioSrc: '${chatMessages.content}',
                         played: true,
-                        me: false,
+                        me: true,
+                        meBgColor: ColorManager.myMessagesColor,
                         noiseCount: 1,
                         onPlay: () {
                           _loadFile('${chatMessages.content}');
                         }, // Do something when voice played.
                       )
                     : SizedBox.shrink(),
+                SizedBox(
+                  width: 10,
+                ),
                 chatMessages.type == MessageType.text
                     ? Row(
                         children: [
@@ -808,16 +810,21 @@ class _ChatPageState extends State<ChatPage> {
                           },
                         ),
                       )
-                    : Container(
+                    : SizedBox(
                         width: 40,
                       ),
+                SizedBox(
+                  width: 10,
+                ),
                 chatMessages.type == MessageType.audio
                     ? VoiceMessage(
-                        contactFgColor: ColorManager.peerMessagesColor,
-                        meBgColor: ColorManager.backgroundColor,
+                        contactBgColor: ColorManager.peerMessagesColor,
+                        contactFgColor: ColorManager.myMessagesColor,
+                        contactPlayIconColor: ColorManager.peerMessagesColor,
+                        // meBgColor: ColorManager.peerMessagesColor,
                         audioSrc: '${chatMessages.content}',
                         played: true,
-                        me: true,
+                        me: false,
                         noiseCount: 1,
                         onPlay: () {
                           _loadFile('${chatMessages.content}');
