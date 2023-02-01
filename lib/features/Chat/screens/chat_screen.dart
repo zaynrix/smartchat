@@ -414,8 +414,6 @@ class _ChatPageState extends State<ChatPage> {
     return true;
   }
 
-  // bool isRecording = false;
-
   void startRecord() async {
     bool hasPermission = await checkPermission();
     if (hasPermission) {
@@ -499,14 +497,18 @@ class _ChatPageState extends State<ChatPage> {
     Reference ref = storage.ref().child(
         'profilepics/audio${DateTime.now().millisecondsSinceEpoch.toString()}.jpg');
     UploadTask uploadTask = ref.putFile(File(recordFilePath!));
-    uploadTask.then((value) async {
-      print('##############done#########');
-      var audioURL = await value.ref.getDownloadURL();
-      String strVal = audioURL.toString();
-      await sendAudioMsg(strVal);
-    }).catchError((e) {
-      print(e);
-    });
+    uploadTask.then(
+      (value) async {
+        print('##############done#########');
+        var audioURL = await value.ref.getDownloadURL();
+        String strVal = audioURL.toString();
+        await sendAudioMsg(strVal);
+      },
+    ).catchError(
+      (e) {
+        print(e);
+      },
+    );
   }
 
   Widget buildMessageInput() {
@@ -520,21 +522,23 @@ class _ChatPageState extends State<ChatPage> {
                     width: double.infinity,
                     height: 50,
                     child: Center(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          "Recording ...",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "Recording ...",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(
                             height: 20,
                             width: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                            )),
-                      ],
-                    )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 )
               : Flexible(
@@ -581,14 +585,15 @@ class _ChatPageState extends State<ChatPage> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                        color: ColorManager.backgroundColor,
-                        borderRadius: BorderRadius.circular(
-                          Sizes.dimen_8,
-                        ),
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
-                          width: 1,
-                        )),
+                      color: ColorManager.backgroundColor,
+                      borderRadius: BorderRadius.circular(
+                        Sizes.dimen_8,
+                      ),
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
                   ),
                 ),
           Container(
