@@ -165,12 +165,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            title: const Text('Smart Talk'),
+            backgroundColor: ColorManager.backgroundColor,
+            centerTitle: false,
+            title: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 20),
+              child: const Text(
+                'Chat',
+                style: TextStyle(fontSize: 22, color: ColorManager.fontColor),
+              ),
+            ),
             actions: [
               IconButton(
                   onPressed: () => googleSignOut(),
-                  icon: const Icon(Icons.logout)),
+                  icon: const Icon(
+                    Icons.logout,
+                    color: ColorManager.fontColor,
+                  )),
               IconButton(
                   onPressed: () {
                     Navigator.push(
@@ -178,125 +188,156 @@ class _HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                             builder: (context) => const ProfilePage()));
                   },
-                  icon: const Icon(Icons.person)),
+                  icon: const Icon(
+                    Icons.person,
+                    color: ColorManager.fontColor,
+                  )),
             ]),
-        body: WillPopScope(
-          onWillPop: onBackPress,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  buildSearchBar(),
-                  Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream: homeProvider.getFirestoreData(
-                          FirestoreConstants.pathUserCollection,
-                          _limit,
-                          _textSearch),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                          if ((snapshot.data?.docs.length ?? 0) > 0) {
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) => buildItem(
-                                  context, snapshot.data?.docs[index]),
-                              controller: scrollController,
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                            );
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: WillPopScope(
+            onWillPop: onBackPress,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    buildSearchBar(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: homeProvider.getFirestoreData(
+                            FirestoreConstants.pathUserCollection,
+                            _limit,
+                            _textSearch),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            if ((snapshot.data?.docs.length ?? 0) > 0) {
+                              return ListView.separated(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (context, index) => buildItem(
+                                    context, snapshot.data?.docs[index]),
+                                controller: scrollController,
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: const Divider(
+                                    height: 1,
+                                    color: ColorManager.greyColor2,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const Center(
+                                child: Text('No user found...'),
+                              );
+                            }
                           } else {
                             return const Center(
-                              child: Text('No user found...'),
+                              child: CircularProgressIndicator(),
                             );
                           }
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Positioned(
-                child:
-                    isLoading ? const LoadingView() : const SizedBox.shrink(),
-              ),
-            ],
+                  ],
+                ),
+                Positioned(
+                  child:
+                      isLoading ? const LoadingView() : const SizedBox.shrink(),
+                ),
+              ],
+            ),
           ),
         ));
   }
 
   Widget buildSearchBar() {
-    return Container(
-      margin: const EdgeInsets.all(Sizes.dimen_10),
-      height: Sizes.dimen_50,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            width: Sizes.dimen_10,
-          ),
-          const Icon(
-            Icons.person_search,
-            color: ColorManager.white,
-            size: Sizes.dimen_24,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Expanded(
-            child: TextFormField(
-              textInputAction: TextInputAction.search,
-              controller: searchTextEditingController,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  buttonClearController.add(true);
-                  setState(() {
-                    _textSearch = value;
-                  });
-                } else {
-                  buttonClearController.add(false);
-                  setState(() {
-                    _textSearch = "";
-                  });
-                }
-              },
-              decoration: const InputDecoration.collapsed(
-                hintText: 'Search here...',
-                hintStyle: TextStyle(color: ColorManager.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        margin: const EdgeInsets.all(Sizes.dimen_10),
+        height: Sizes.dimen_50,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: Sizes.dimen_10,
+            ),
+            const Icon(
+              Icons.person_search,
+              color: ColorManager.greyColor,
+              size: Sizes.dimen_24,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              child: TextFormField(
+                style: TextStyle(color: Colors.black, fontSize: 16),
+                textInputAction: TextInputAction.search,
+                controller: searchTextEditingController,
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    buttonClearController.add(true);
+                    setState(() {
+                      _textSearch = value;
+                    });
+                  } else {
+                    buttonClearController.add(false);
+                    setState(() {
+                      _textSearch = "";
+                    });
+                  }
+                },
+                decoration: const InputDecoration.collapsed(
+                  hintText: 'Search here...',
+                  hintStyle:
+                      TextStyle(color: ColorManager.greyColor, fontSize: 16),
+                ),
               ),
             ),
-          ),
-          StreamBuilder(
-              stream: buttonClearController.stream,
-              builder: (context, snapshot) {
-                return snapshot.data == true
-                    ? GestureDetector(
-                        onTap: () {
-                          searchTextEditingController.clear();
-                          buttonClearController.add(false);
-                          setState(() {
-                            _textSearch = '';
-                          });
-                        },
-                        child: const Icon(
-                          Icons.clear_rounded,
-                          color: ColorManager.greyColor,
-                          size: 20,
-                        ),
-                      )
-                    : const SizedBox.shrink();
-              })
-        ],
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Sizes.dimen_30),
-        color: ColorManager.spaceLight,
+            StreamBuilder(
+                stream: buttonClearController.stream,
+                builder: (context, snapshot) {
+                  return snapshot.data == true
+                      ? GestureDetector(
+                          onTap: () {
+                            searchTextEditingController.clear();
+                            buttonClearController.add(false);
+                            setState(() {
+                              _textSearch = '';
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 20),
+                            child: const Icon(
+                              Icons.clear_rounded,
+                              color: ColorManager.greyColor,
+                              size: 20,
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink();
+                })
+          ],
+        ),
+        decoration: BoxDecoration(
+            color: ColorManager.backgroundColor,
+            borderRadius: BorderRadius.circular(
+              Sizes.dimen_8,
+            ),
+            border: Border.all(
+              color: Colors.grey.withOpacity(0.5),
+              width: 1,
+            )),
       ),
     );
   }
@@ -363,68 +404,7 @@ class _HomePageState extends State<HomePage> {
               userChat.displayName,
               style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
-            //         builder:
-            //             (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            //           if (snapshot.hasData) {
-            //             listMessages = snapshot.data!.docs;
-            //             ChatMessages chatMessages =
-            //                 ChatMessages.fromDocument(snapshot.data!.docs.first);
-            //
-            //             if (listMessages.isNotEmpty) {
-            //               return Text(
-            //                 DateFormat('dd MMM yyyy, hh:mm a').format(
-            //                   DateTime.fromMillisecondsSinceEpoch(
-            //                     int.parse(chatMessages.timestamp),
-            //                   ),
-            //                 ),
-            //                 style: const TextStyle(
-            //                     color: ColorManager.lightGrey,
-            //                     fontSize: Sizes.dimen_12,
-            //                     fontStyle: FontStyle.italic),
-            //               );
-            //             } else {
-            //               return const Center(
-            //                 child: Text('No messages...'),
-            //               );
-            //             }
-            //           } else {
-            //             return const Center(
-            //               child: CircularProgressIndicator(
-            //                 color: ColorManager.burgundy,
-            //               ),
-            //             );
-            //           }
-            //         }),
-            //   ),
           ),
-          // subtitle: Consumer<ChatProvider>(
-          //   builder: (context, chatProvider, child) => StreamBuilder<
-          //           QuerySnapshot>(
-          //       stream: chatProvider.getChatMessage(
-          //           "xup7dQlszgVXgWXt1BTOJRdpQpN2 - 0BOR2NvPp8ePgHJLBcyG8tv2n0l1",
-          //           _limit),
-          //       builder: (BuildContext context,
-          //           AsyncSnapshot<QuerySnapshot> snapshot) {
-          //         if (snapshot.hasData) {
-          //           listMessages = snapshot.data!.docs;
-          //           ChatMessages chatMessages =
-          //               ChatMessages.fromDocument(snapshot.data!.docs.first);
-          //
-          //           if (listMessages.isNotEmpty) {
-          //             return Text("${chatMessages.content}");
-          //           } else {
-          //             return Text('No messages...');
-          //           }
-          //         } else {
-          //           return const Center(
-          //             child: CircularProgressIndicator(
-          //               color: ColorManager.burgundy,
-          //             ),
-          //           );
-          //         }
-          //       }),
-          // ),
-          // ),
         );
       }
     } else {

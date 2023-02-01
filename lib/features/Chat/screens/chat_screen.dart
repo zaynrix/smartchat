@@ -536,11 +536,8 @@ class _ChatPageState extends State<ChatPage> {
                         meBgColor: ColorManager.spaceLight,
                         audioSrc: '${chatMessages.content}',
                         played: true,
-                        // To show played badge or not.
                         me: false,
                         noiseCount: 1,
-
-                        // Set message side.
                         onPlay: () {
                           _loadFile('${chatMessages.content}');
                         }, // Do something when voice played.

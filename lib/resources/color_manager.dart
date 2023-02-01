@@ -4,7 +4,9 @@ class ColorManager {
   ColorManager._();
   static const Color primary = const Color(0xFF4375FF);
   static const Color primaryBorder = const Color(0xFF4375FF);
-  static const Color backgroundColor = Color(0xFFF3F4F6);
+  // static const Color backgroundColor = Color(0xFFF3F4F6);
+  static const Color backgroundColor = const Color(0xFFFFFFFF);
+  static const Color fontColor = const Color(0xff3E456E);
   static const Color black = const Color(0xFF000000);
   static const Color white = const Color(0xFFFFFFFF);
   static const Color spaceLight = Color(0xff2b3a67);
