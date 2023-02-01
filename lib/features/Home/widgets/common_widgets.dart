@@ -50,20 +50,28 @@ Widget chatImage({required String imageSrc, required Function onTap}) {
 
 Widget messageBubble(
     {required String chatContent,
+    bool isMe = true,
     required EdgeInsetsGeometry? margin,
     Color? color,
     Color? textColor}) {
   return Container(
-    padding: const EdgeInsets.all(Sizes.dimen_10),
+    padding: const EdgeInsets.all(Sizes.dimen_18),
     margin: margin,
-    width: Sizes.dimen_200,
+    width: Sizes.dimen_230,
     decoration: BoxDecoration(
       color: color,
-      borderRadius: BorderRadius.circular(Sizes.dimen_10),
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(Sizes.dimen_18),
+          topLeft: Radius.circular(Sizes.dimen_18),
+          bottomLeft: Radius.circular(isMe ? Sizes.dimen_18 : Sizes.dimen_0),
+          bottomRight: Radius.circular(!isMe ? Sizes.dimen_18 : Sizes.dimen_0)),
     ),
     child: Text(
       chatContent,
-      style: TextStyle(fontSize: Sizes.dimen_16, color: textColor),
+      style: TextStyle(
+          fontSize: Sizes.dimen_16,
+          color: textColor,
+          overflow: TextOverflow.visible),
     ),
   );
 }

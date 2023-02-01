@@ -289,8 +289,9 @@ class _ChatPageState extends State<ChatPage> {
             ],
           ),
         ),
-        iconTheme:
-            IconThemeData.fallback().copyWith(color: ColorManager.fontColor,),
+        iconTheme: IconThemeData.fallback().copyWith(
+          color: ColorManager.fontColor,
+        ),
         actions: [
           // Consumer(
           //   builder: (context, HomeNotifier homeNotifier, child) => IconButton(
@@ -305,7 +306,8 @@ class _ChatPageState extends State<ChatPage> {
             child: Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                border: Border.all(color: ColorManager.greyColor),
+                border:
+                    Border.all(color: ColorManager.greyColor.withOpacity(0.5)),
                 borderRadius: BorderRadius.circular(Sizes.dimen_6),
               ),
               child: IconButton(
@@ -320,6 +322,33 @@ class _ChatPageState extends State<ChatPage> {
                 },
                 icon: const Icon(
                   Icons.phone,
+                  color: ColorManager.fontColor,
+                  size: 18,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                border:
+                    Border.all(color: ColorManager.greyColor.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(Sizes.dimen_6),
+              ),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  ProfileProvider profileProvider;
+                  profileProvider = context.read<ProfileProvider>();
+                  String callPhoneNumber = profileProvider
+                          .getPrefs(FirestoreConstants.phoneNumber) ??
+                      "";
+                  _callPhoneNumber(callPhoneNumber);
+                },
+                icon: const Icon(
+                  Icons.videocam_rounded,
                   color: ColorManager.fontColor,
                   size: 18,
                 ),
@@ -345,6 +374,9 @@ class _ChatPageState extends State<ChatPage> {
                     )
                   : SizedBox.shrink(),
               buildMessageInput(),
+              SizedBox(
+                height: 16,
+              )
             ],
           ),
         ),
@@ -479,25 +511,10 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget buildMessageInput() {
     return SizedBox(
+      // height: 50,
       width: double.infinity,
-      height: 50,
       child: Row(
         children: [
-          Container(
-            margin: const EdgeInsets.only(right: Sizes.dimen_4),
-            decoration: BoxDecoration(
-              color: ColorManager.burgundy,
-              borderRadius: BorderRadius.circular(Sizes.dimen_6),
-            ),
-            child: IconButton(
-              onPressed: getImage,
-              icon: const Icon(
-                Icons.camera_alt,
-                size: Sizes.dimen_28,
-              ),
-              color: ColorManager.white,
-            ),
-          ),
           isRecording
               ? Flexible(
                   child: Container(
@@ -523,22 +540,65 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 )
               : Flexible(
-                  child: TextField(
-                  focusNode: focusNode,
-                  textInputAction: TextInputAction.send,
-                  keyboardType: TextInputType.text,
-                  textCapitalization: TextCapitalization.sentences,
-                  controller: textEditingController,
-                  decoration:
-                      kTextInputDecoration.copyWith(hintText: 'write here...'),
-                  onSubmitted: (value) {
-                    onSendMessage(
-                        textEditingController.text, MessageType.text, false);
-                  },
-                )),
-          SizedBox(
-            width: 10,
-          ),
+                  child: Container(
+                    margin: const EdgeInsets.all(Sizes.dimen_10),
+                    height: Sizes.dimen_50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: Sizes.dimen_4,
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: getImage,
+                          icon: const Icon(
+                            Icons.camera_alt_outlined,
+                            size: Sizes.dimen_20,
+                          ),
+                          color: ColorManager.fontColor,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.sentences,
+                            focusNode: focusNode,
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            textInputAction: TextInputAction.search,
+                            controller: textEditingController,
+                            onFieldSubmitted: (value) {
+                              onSendMessage(textEditingController.text,
+                                  MessageType.text, false);
+                            },
+                            decoration: const InputDecoration.collapsed(
+                              hintText: 'Type your message',
+                              hintStyle: TextStyle(
+                                  color: ColorManager.greyColor, fontSize: 16),
+
+                              // prefix:
+                              //                         ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                        color: ColorManager.backgroundColor,
+                        borderRadius: BorderRadius.circular(
+                          Sizes.dimen_8,
+                        ),
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 1,
+                        )),
+                  ),
+                ),
+          // SizedBox(
+          //   width: 5,
+          // ),
           Container(
               height: 50,
               margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
@@ -571,15 +631,18 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             margin: const EdgeInsets.only(left: Sizes.dimen_4),
             decoration: BoxDecoration(
-              color: ColorManager.burgundy,
-              borderRadius: BorderRadius.circular(Sizes.dimen_6),
+              color: ColorManager.myMessagesColor,
+              borderRadius: BorderRadius.circular(Sizes.dimen_10),
             ),
             child: IconButton(
               onPressed: () {
                 onSendMessage(
                     textEditingController.text, MessageType.text, true);
               },
-              icon: const Icon(Icons.send_rounded),
+              icon: const Icon(
+                Icons.send_rounded,
+                size: 18,
+              ),
               color: ColorManager.white,
             ),
           ),
@@ -596,6 +659,9 @@ class _ChatPageState extends State<ChatPage> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            SizedBox(
+              height: 5,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -616,7 +682,7 @@ class _ChatPageState extends State<ChatPage> {
                         children: [
                           messageBubble(
                             chatContent: chatMessages.content,
-                            color: ColorManager.spaceLight,
+                            color: ColorManager.myMessagesColor,
                             textColor: ColorManager.white,
                             margin:
                                 const EdgeInsets.only(right: Sizes.dimen_10),
@@ -635,6 +701,7 @@ class _ChatPageState extends State<ChatPage> {
                     ? Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
+                          color: Colors.red,
                           borderRadius: BorderRadius.circular(Sizes.dimen_6),
                         ),
                         child: Image.network(
@@ -668,7 +735,7 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                       )
                     : Container(
-                        width: 35,
+                        width: 40,
                       ),
               ],
             ),
@@ -697,12 +764,15 @@ class _ChatPageState extends State<ChatPage> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 5,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 isMessageReceived(index)
 
-                    // left side (received message)
+                    // left side (received message) Peer User
                     ? Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
@@ -739,7 +809,7 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                       )
                     : Container(
-                        width: 35,
+                        width: 40,
                       ),
                 chatMessages.type == MessageType.audio
                     ? VoiceMessage(
@@ -752,15 +822,14 @@ class _ChatPageState extends State<ChatPage> {
                         // Set message side.
                         onPlay: () {
                           _loadFile('${chatMessages.content}');
-
-                          // _loadFile(chatMessages.content);
                         }, // Do something when voice played.
                       )
                     : SizedBox.shrink(),
                 chatMessages.type == MessageType.text
                     ? messageBubble(
-                        color: ColorManager.burgundy,
-                        textColor: ColorManager.white,
+                        isMe: false,
+                        color: ColorManager.peerMessagesColor,
+                        textColor: ColorManager.fontColor,
                         chatContent: chatMessages.content,
                         margin: const EdgeInsets.only(left: Sizes.dimen_10),
                       )

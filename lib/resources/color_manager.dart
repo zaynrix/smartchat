@@ -10,6 +10,8 @@ class ColorManager {
   static const Color black = const Color(0xFF000000);
   static const Color white = const Color(0xFFFFFFFF);
   static const Color spaceLight = Color(0xff2b3a67);
+  static const Color myMessagesColor = Color(0xff4A74E8);
+  static const Color peerMessagesColor = Color(0xffEEF2F8);
   static const Color orangeWeb = Color(0xFFf59400);
   // static const Color white = Color(0xFFf5f5f5);
   static const Color greyColor = Color(0xffaeaeae);
