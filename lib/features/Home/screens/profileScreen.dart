@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -152,9 +151,33 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.backgroundColor,
       appBar: AppBar(
-        title: Text(
-          AppStrings().profileTitle,
+        backgroundColor: ColorManager.backgroundColor,
+        leadingWidth: 30,
+        centerTitle: false,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  '${AppStrings().profileTitle}'.trim(),
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: ColorManager.fontColor,
+                  ),
+                  overflow: TextOverflow.visible,
+                ),
+              ),
+            ],
+          ),
+        ),
+        iconTheme: IconThemeData.fallback().copyWith(
+          color: ColorManager.fontColor,
         ),
       ),
       body: Stack(
@@ -172,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: avatarImageFile == null
                         ? photoUrl.isNotEmpty
                             ? ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
+                                borderRadius: BorderRadius.circular(15),
                                 child: Image.network(
                                   photoUrl,
                                   fit: BoxFit.cover,
@@ -231,10 +254,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
-                      'Name',
+                    Text(
+                      '${AppStrings().fullName}',
                       style: TextStyle(
-                        fontStyle: FontStyle.italic,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: ColorManager.spaceCadet,
                       ),
@@ -250,13 +273,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     vertical15,
                     const Text(
-                      'About Me...',
+                      'About Me',
                       style: TextStyle(
-                          fontStyle: FontStyle.italic,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: ColorManager.spaceCadet),
                     ),
                     TextField(
+                      maxLines: 5,
                       decoration: kTextInputDecoration.copyWith(
                           hintText: 'Write about yourself...'),
                       onChanged: (value) {
@@ -264,60 +288,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     ),
                     vertical15,
-                    const Text(
-                      'Select Country Code',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.spaceCadet,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 1.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: CountryCodePicker(
-                        onChanged: (country) {
-                          setState(() {
-                            dialCodeDigits = country.dialCode!;
-                          });
-                        },
-                        initialSelection: 'IN',
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        favorite: const ["+1", "US", "+91", "IN"],
-                      ),
-                    ),
-                    vertical15,
-                    const Text(
-                      'Phone Number',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.spaceCadet,
-                      ),
-                    ),
-                    TextField(
-                      decoration: kTextInputDecoration.copyWith(
-                        hintText: 'Phone Number',
-                        prefix: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(
-                            dialCodeDigits,
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                      controller: _phoneController,
-                      maxLength: 12,
-                      keyboardType: TextInputType.number,
-                    ),
                   ],
                 ),
                 ElevatedButton(
+                    clipBehavior: Clip.hardEdge,
                     onPressed: updateFirestoreData,
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),

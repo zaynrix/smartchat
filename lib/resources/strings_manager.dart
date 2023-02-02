@@ -12,6 +12,7 @@ class AppStrings {
   String email = "Email".tr();
   String password = "Password".tr();
   String forgetPassword = "Forget Password?".tr();
+  String fullName = "Full Name".tr();
   String signUp = "Sign Up".tr();
   String doNotHaveAccount = "Don't have an account?".tr();
 

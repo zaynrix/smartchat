@@ -703,7 +703,7 @@ class _ChatPageState extends State<ChatPage> {
                     ? Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Colors.grey,
                           borderRadius: BorderRadius.circular(Sizes.dimen_6),
                         ),
                         child: Image.network(
