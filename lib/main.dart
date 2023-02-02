@@ -21,6 +21,7 @@ void main() async {
   await Firebase.initializeApp();
 
   // Initialize instances
+
   await init();
 
   sl<AppConfig>().loadData();
