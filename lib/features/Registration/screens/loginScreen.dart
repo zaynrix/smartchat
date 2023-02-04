@@ -44,30 +44,31 @@ class _LoginPageState extends State<LoginPage> {
             ),
             children: [
               vertical50,
-              const Text(
-                'Welcome to Smart Talk',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: Sizes.dimen_26,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              vertical30,
-              // const Text(
-              //   'Login to continue',
-              //   textAlign: TextAlign.center,
-              //   style: TextStyle(
-              //     fontSize: Sizes.dimen_22,
-              //     fontWeight: FontWeight.w500,
-              //   ),
-              // ),
-              // vertical50,
               Center(
                   child: Image.asset(
-                'assets/images/back.png',
-                width: MediaQuery.of(context).size.width * 0.7,
+                'assets/images/logo.png',
+                width: MediaQuery.of(context).size.width * 0.2,
               )),
-              vertical50,
+              vertical30,
+              const Text(
+                'Log In Now',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: Sizes.dimen_40,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.fontColor),
+              ),
+              const Text(
+                'Please Log in to continue using our app',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: Sizes.dimen_16,
+                    fontWeight: FontWeight.normal,
+                    color: ColorManager.fontColor),
+              ),
+              vertical70,
+              vertical70,
+              vertical70,
               GestureDetector(
                 onTap: () async {
                   bool isSuccess = await authProvider.handleGoogleSignIn();
@@ -78,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (context) => const HomePage()));
                   }
                 },
-                child: Image.asset('assets/images/google_login.jpg'),
+                child:
+                    Image.asset('assets/images/google_login.png', height: 90),
               ),
             ],
           ),

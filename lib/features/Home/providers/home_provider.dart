@@ -17,12 +17,12 @@ class HomeProvider {
 
   Stream<QuerySnapshot> getFirestoreData(
       String collectionPath, int limit, String? textSearch) {
+    print("$textSearch");
     if (textSearch?.isNotEmpty == true) {
       return firebaseFirestore
           .collection(collectionPath)
           .limit(limit)
-          .where(FirestoreConstants.displayName,
-              isGreaterThanOrEqualTo: textSearch)
+          .where(FirestoreConstants.displayName, isGreaterThan: textSearch)
           .snapshots();
     } else {
       return firebaseFirestore

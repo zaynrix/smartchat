@@ -404,6 +404,10 @@ class _HomePageState extends State<HomePage> {
               userChat.displayName,
               style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
+            // subtitle: Text(
+            //   userChat.phoneNumber.isEmpty ? "w" : userChat.phoneNumber,
+            //   style: const TextStyle(color: Colors.black, fontSize: 16),
+            // ),
           ),
         );
       }
