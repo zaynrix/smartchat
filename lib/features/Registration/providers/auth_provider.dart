@@ -17,9 +17,12 @@ class AuthProvider extends ChangeNotifier {
   final firebaseAuth = sl<FirebaseAuth>();
   final firebaseFirestore = sl<FirebaseFirestore>();
 
+  // ------------------ Get User ID ------------------
   String? getFirebaseUserId() {
     return sl<SharedPreferences>().getString(FirestoreConstants.id);
   }
+
+  // ------------------ is Login  ------------------------
 
   Future<bool> isLoggedIn() async {
     bool isLoggedIn = await sl<GoogleSignIn>().isSignedIn();
@@ -31,6 +34,8 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  // ------------------ Google Login  ------------------------
 
   Future<bool> handleGoogleSignIn() async {
     _status = Status.authenticating;
@@ -100,6 +105,8 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  // ------------------ Logout  ------------------------
 
   Future<void> googleSignOut() async {
     _status = Status.uninitialized;
